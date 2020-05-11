@@ -23,6 +23,8 @@ module.exports = {
   },
   plugins: [
     'react',
+    'jsx-a11y',
+    'import',
     'prettier',
     'react-hooks'
   ],
@@ -42,4 +44,11 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   },
+  settings: {
+    "import/resolver": {
+      "babel-plugin-root-import": {
+        rootPathSuffix: "src"
+      }
+    }
+  }
 };
