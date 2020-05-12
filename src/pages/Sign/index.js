@@ -1,13 +1,24 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/fastfeet-logo.png';
 
 function Sign() {
+  const dispatch = useDispatch();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    dispatch(signInRequest('ga@mail.com', '123456'));
+  }
+
   return (
     <>
       <img src={logo} alt="FastFeet" />
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="email">SEU E-MAIL</label>
         <input
           type="email"
