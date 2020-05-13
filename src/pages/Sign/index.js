@@ -1,10 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import * as yup from 'yup';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/fastfeet-logo.png';
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Insira um e-mail válido')
+    .required('O e-mail é obrigatório'),
+  password: yup.string().required('A senha é obrigatória'),
+});
 
 function Sign() {
   const dispatch = useDispatch();
@@ -18,7 +27,7 @@ function Sign() {
     <>
       <img src={logo} alt="FastFeet" />
 
-      <Form onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <label htmlFor="email">SEU E-MAIL</label>
         <Input
           type="email"

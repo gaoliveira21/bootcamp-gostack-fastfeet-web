@@ -30,7 +30,7 @@ export const Content = styled.div`
     flex-direction: column;
 
     label {
-      margin: 15px 0;
+      margin: 12px 0 10px;
       font-weight: bold;
       color: #444;
     }
@@ -39,6 +39,12 @@ export const Content = styled.div`
       border: 1px solid #ddd;
       padding: 12px 10px;
       border-radius: 4px;
+    }
+
+    span {
+      color: #de3b3b;
+      margin-top: 4px;
+      font-weight: bold;
     }
 
     button {
