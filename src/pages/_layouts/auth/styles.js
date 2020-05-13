@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Wrapper = styled.div`
   background: #7d40e7;
@@ -57,6 +58,11 @@ export const Content = styled.div`
       text-align: center;
       border: 0;
       border-radius: 4px;
+      transition: background 0.4s;
+
+      &:hover {
+        background: ${darken(0.03, '#7d40e7')};
+      }
     }
   }
 `;
