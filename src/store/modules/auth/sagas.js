@@ -26,4 +26,17 @@ function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('persist/REHYDRATE', setToken),
+]);
