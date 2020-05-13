@@ -59,8 +59,10 @@ export const Content = styled.div`
       font-weight: bold;
     }
 
-    a {
+    button {
       color: #de3b3b;
+      background: none;
+      border: 0;
 
       &:hover {
         color: ${lighten(0.15, '#DE3B3B')};
