@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -10,6 +10,7 @@ import logo from '~/assets/fastfeet-logo.png';
 
 function Header() {
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.profile);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -45,7 +46,7 @@ function Header() {
         </nav>
 
         <aside>
-          <strong>Admin FastFeet</strong>
+          <strong>{profile.name}</strong>
           <button type="button" onClick={handleSignOut}>
             sair do sistema
           </button>
