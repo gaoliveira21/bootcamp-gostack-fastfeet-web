@@ -1,13 +1,14 @@
 import React from 'react';
 
-import api from '~/services/api';
-
-// import { Container } from './styles';
+import ContainerHeader from '~/components/ContainerHeader';
+import { Container } from './styles';
 
 function Orders() {
-  api.get('/orders');
-
-  return <h1>Orders</h1>;
+  return (
+    <Container>
+      <ContainerHeader />
+    </Container>
+  );
 }
 
 export default Orders;
