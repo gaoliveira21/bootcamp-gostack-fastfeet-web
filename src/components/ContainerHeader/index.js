@@ -1,12 +1,13 @@
 import React from 'react';
 import { MdAdd, MdSearch } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-function ContainerHeader() {
+function ContainerHeader({ title }) {
   return (
     <Container>
-      <h2>Gerenciando encomendas</h2>
+      <h2>{title}</h2>
       <div>
         <div>
           <input type="text" placeholder="Buscar por encomendas" />
@@ -20,5 +21,9 @@ function ContainerHeader() {
     </Container>
   );
 }
+
+ContainerHeader.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default ContainerHeader;
