@@ -25,10 +25,6 @@ export const OrdersTable = styled.table`
     border-radius: 4px;
     color: #555;
 
-    &:last-child {
-      text-align: center;
-    }
-
     div {
       display: flex;
       flex-direction: row;
