@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Badge = styled.div`
   display: flex;
   justify-content: center;
-  background: #dff0df;
+  background: ${(props) => props.backgroundColor};
   width: 110px;
   padding: 8px;
   border-radius: 12px;
@@ -13,7 +13,7 @@ export const Badge = styled.div`
     height: 10px;
     padding: 5px;
     border-radius: 50%;
-    background: #2ca42b;
+    background: ${(props) => props.fontColor};
   }
 
   span {
@@ -21,6 +21,7 @@ export const Badge = styled.div`
     padding: 0;
     margin: 0;
     font-weight: bold;
-    color: #2ca42b;
+    color: ${(props) => props.fontColor};
+    font-size: 12px;
   }
 `;
