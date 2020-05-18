@@ -3,10 +3,11 @@ import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
 import api from '~/services/api';
 
+import * as StatusTheme from '~/styles/themes/StatusTheme';
 import ActionBox from '~/components/ActionBox';
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
-import { Badge } from './styles';
+import { StatusBadge } from './styles';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -19,40 +20,24 @@ function Orders() {
         if (order.canceled_at)
           return {
             ...order,
-            status: {
-              text: 'CANCELADA',
-              fontColor: '#DE3B3B',
-              backgroundColor: '#FAB0B0',
-            },
+            status: StatusTheme.canceled,
           };
 
         if (order.end_date)
           return {
             ...order,
-            status: {
-              text: 'ENTREGUE',
-              fontColor: '#2CA42B',
-              backgroundColor: '#DFF0DF',
-            },
+            status: StatusTheme.delivered,
           };
 
         if (order.start_date)
           return {
             ...order,
-            status: {
-              text: 'RETIRADA',
-              fontColor: '#4D85EE',
-              backgroundColor: '#BAD2FF',
-            },
+            status: StatusTheme.withdrawal,
           };
 
         return {
           ...order,
-          status: {
-            text: 'PENDENTE',
-            fontColor: '#C1BC35',
-            backgroundColor: '#F0F0DF',
-          },
+          status: StatusTheme.pending,
         };
       });
 
@@ -96,10 +81,10 @@ function Orders() {
               <td>{order.recipient.city}</td>
               <td>{order.recipient.state}</td>
               <td>
-                <Badge {...order.status}>
+                <StatusBadge {...order.status}>
                   <div />
                   <span>{order.status.text}</span>
-                </Badge>
+                </StatusBadge>
               </td>
               <td>
                 <ActionBox>
