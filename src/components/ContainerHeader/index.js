@@ -10,7 +10,10 @@ function ContainerHeader({ title }) {
       <h2>{title}</h2>
       <div>
         <div>
-          <input type="text" placeholder="Buscar por encomendas" />
+          <input
+            type="text"
+            placeholder={`Buscar por ${title.split(' ')[1]}`}
+          />
           <MdSearch color="#999999" size={20} />
         </div>
         <button type="button">
