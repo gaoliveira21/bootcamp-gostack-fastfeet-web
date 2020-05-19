@@ -42,7 +42,6 @@ function Orders() {
       });
 
       setOrders(data);
-      console.tron.log(data);
     })();
   }, []);
 

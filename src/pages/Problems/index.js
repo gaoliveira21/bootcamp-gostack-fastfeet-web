@@ -11,7 +11,11 @@ function Problems() {
   const [problems, setProblems] = useState([]);
 
   useEffect(() => {
-    (async function loadProblems() {})();
+    (async function loadProblems() {
+      const response = await api.get('/delivery/problems');
+
+      setProblems(response.data);
+    })();
   }, []);
 
   return (
@@ -28,23 +32,25 @@ function Problems() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Problema.....</td>
-            <td>
-              <ActionBox>
-                <ul>
-                  <li>
-                    <MdRemoveRedEye color="#7159c1" /> <span>Visualizar</span>
-                  </li>
-                  <li>
-                    <MdDeleteForever color="#DE3B3B" />{' '}
-                    <span>Cancelar encomenda</span>
-                  </li>
-                </ul>
-              </ActionBox>
-            </td>
-          </tr>
+          {problems.map((problem) => (
+            <tr>
+              <td>#{problem.order.id}</td>
+              <td>{problem.description}</td>
+              <td>
+                <ActionBox>
+                  <ul>
+                    <li>
+                      <MdRemoveRedEye color="#7159c1" /> <span>Visualizar</span>
+                    </li>
+                    <li>
+                      <MdDeleteForever color="#DE3B3B" />{' '}
+                      <span>Cancelar encomenda</span>
+                    </li>
+                  </ul>
+                </ActionBox>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>
