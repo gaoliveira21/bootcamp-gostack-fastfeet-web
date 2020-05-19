@@ -20,6 +20,7 @@ export const TableWrapper = styled.table`
 
   tbody td {
     padding: 12px;
+    height: 57px;
     background: #fff;
     margin: 10px;
     border-radius: 4px;
