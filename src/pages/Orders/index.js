@@ -7,10 +7,12 @@ import * as StatusTheme from '~/styles/themes/StatusTheme';
 import ActionBox from '~/components/ActionBox';
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
+import Dialog from '~/components/Dialog';
 import { StatusBadge } from './styles';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const [dialog, setDialog] = useState(false);
 
   useEffect(() => {
     (async function loadOrders() {
@@ -45,8 +47,13 @@ function Orders() {
     })();
   }, []);
 
+  function handleDialogClose() {
+    setDialog(false);
+  }
+
   return (
     <>
+      <Dialog visible={dialog} close={handleDialogClose} />
       <ContainerHeader title="Gerenciando encomendas" />
       <Table>
         <thead>
@@ -62,7 +69,7 @@ function Orders() {
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr>
+            <tr key={order.id}>
               <td>#{order.id}</td>
               <td>{order.recipient.name}</td>
               <td>
@@ -88,7 +95,7 @@ function Orders() {
               <td>
                 <ActionBox>
                   <ul>
-                    <li>
+                    <li onClick={() => setDialog(true)}>
                       <MdRemoveRedEye color="#7159c1" /> <span>Visualizar</span>
                     </li>
                     <li>
