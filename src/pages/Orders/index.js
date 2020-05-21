@@ -12,7 +12,7 @@ import { StatusBadge } from './styles';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
-  const [dialog, setDialog] = useState(false);
+  const [dialog, setDialog] = useState(null);
 
   useEffect(() => {
     (async function loadOrders() {
@@ -47,13 +47,52 @@ function Orders() {
     })();
   }, []);
 
-  function handleDialogClose() {
-    setDialog(false);
+  function handleShowDialog(id) {
+    const order = orders.filter((o) => o.id === id);
+
+    function handleDialogClose() {
+      setDialog(null);
+    }
+
+    setDialog(
+      <Dialog
+        visible
+        data={order[0]}
+        close={handleDialogClose}
+        render={(data) => (
+          <>
+            <strong>Informações da encomenda</strong>
+            <span>
+              {data.recipient.street}, {data.recipient.number}
+            </span>
+            <span>
+              {data.recipient.city} - {data.recipient.state}
+            </span>
+            <span>{data.recipient.cep}</span>
+            <hr />
+            <strong>Datas</strong>
+            <p>
+              <strong>Retirada: </strong>
+              <span>{data.start_date}</span>
+            </p>
+            <p>
+              <strong>Entregue: </strong>
+              <span>{data.end_date}</span>
+            </p>
+            <hr />
+            <strong>Assinatura do destinatário</strong>
+            {data.recipient.signature ? (
+              <img src={data.recipient.signature.url} alt="assinatura" />
+            ) : null}
+          </>
+        )}
+      />
+    );
   }
 
   return (
     <>
-      <Dialog visible={dialog} close={handleDialogClose} />
+      {dialog}
       <ContainerHeader title="Gerenciando encomendas" />
       <Table>
         <thead>
@@ -95,7 +134,7 @@ function Orders() {
               <td>
                 <ActionBox>
                   <ul>
-                    <li onClick={() => setDialog(true)}>
+                    <li onClick={() => handleShowDialog(order.id)}>
                       <MdRemoveRedEye color="#7159c1" /> <span>Visualizar</span>
                     </li>
                     <li>
