@@ -1,10 +1,11 @@
 import React from 'react';
 import { MdAdd, MdSearch } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
 
-function ContainerHeader({ title }) {
+function ContainerHeader({ title, link }) {
   return (
     <Container>
       <h2>{title}</h2>
@@ -16,10 +17,10 @@ function ContainerHeader({ title }) {
           />
           <MdSearch color="#999999" size={20} />
         </div>
-        <button type="button">
+        <Link to={link}>
           <MdAdd color="#fff" size={16} />
           CADASTRAR
-        </button>
+        </Link>
       </div>
     </Container>
   );
@@ -27,6 +28,7 @@ function ContainerHeader({ title }) {
 
 ContainerHeader.propTypes = {
   title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default ContainerHeader;

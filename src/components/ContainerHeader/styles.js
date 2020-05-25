@@ -49,7 +49,7 @@ export const Container = styled.header`
       }
     }
 
-    button {
+    a {
       display: flex;
       align-items: center;
       border: 0;

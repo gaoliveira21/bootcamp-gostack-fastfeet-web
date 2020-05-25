@@ -93,7 +93,7 @@ function Orders() {
   return (
     <>
       {dialog}
-      <ContainerHeader title="Gerenciando encomendas" />
+      <ContainerHeader title="Gerenciando encomendas" link="/orders/new" />
       <Table>
         <thead>
           <tr>
