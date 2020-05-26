@@ -54,3 +54,50 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const FormBox = styled.div`
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding-bottom: 25px;
+      }
+    }
+
+    select {
+      border: 1px solid #dddddd;
+      background: #fff;
+      border-radius: 4px;
+      padding: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #444444;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      border: 1px solid #dddddd;
+      padding: 13px;
+      background: #fff;
+      border-radius: 4px;
+    }
+  }
+`;

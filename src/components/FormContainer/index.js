@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
-import { Container } from './styles';
+import { Container, FormBox } from './styles';
 
-function FormContainer() {
+function FormContainer({ children }) {
   return (
     <Container>
       <header>
@@ -20,8 +21,13 @@ function FormContainer() {
           </button>
         </div>
       </header>
+      <FormBox>{children}</FormBox>
     </Container>
   );
 }
+
+FormContainer.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default FormContainer;
