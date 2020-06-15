@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Select } from '@rocketseat/unform';
+import React from 'react';
+import { Form } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import * as yup from 'yup';
@@ -9,6 +9,8 @@ import api from '~/services/api';
 
 import { Container, FormBox } from './styles';
 
+import FormPartial from '../_partials/Form';
+
 const schema = yup.object().shape({
   recipient_id: yup.string().required('Selecione o entregador'),
   deliveryman_id: yup.string().required('Selecione o destinatário'),
@@ -16,33 +18,6 @@ const schema = yup.object().shape({
 });
 
 function New() {
-  const [deliverymen, setDeliverymen] = useState([]);
-  const [recipients, setRecipients] = useState([]);
-
-  useEffect(() => {
-    (async function loadSelectsData() {
-      const [recipientsRes, deliverymenRes] = await Promise.all([
-        api.get('/recipients'),
-        api.get('/deliverymen'),
-      ]);
-
-      const recipientsData = recipientsRes.data.map(
-        ({ id, name, street, number, city, state }) => ({
-          id,
-          title: `${name} - ${street}, ${number} - ${city}/${state}`,
-        })
-      );
-
-      const deliverymenData = deliverymenRes.data.map(({ id, name }) => ({
-        id,
-        title: name,
-      }));
-
-      setDeliverymen(deliverymenData);
-      setRecipients(recipientsData);
-    })();
-  }, []);
-
   async function handleSubmit(
     { recipient_id, deliveryman_id, product },
     { resetForm }
@@ -77,31 +52,7 @@ function New() {
             </button>
           </div>
         </header>
-        <FormBox>
-          <div>
-            <div>
-              <label htmlFor="recipient">Destinatário</label>
-              <Select
-                id="recipient"
-                name="recipient_id"
-                placeholder="Selecione o destinatário"
-                options={recipients}
-              />
-            </div>
-            <div>
-              <label htmlFor="deliveryman">Entregador</label>
-              <Select
-                id="deliveryman"
-                name="deliveryman_id"
-                placeholder="Selecione o entregador"
-                options={deliverymen}
-              />
-            </div>
-          </div>
-
-          <label htmlFor="product">Nome do produto</label>
-          <Input name="product" id="product" type="text" />
-        </FormBox>
+        <FormPartial />
       </Form>
     </Container>
   );
