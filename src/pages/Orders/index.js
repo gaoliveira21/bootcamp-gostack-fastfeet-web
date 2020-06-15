@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import * as StatusTheme from '~/styles/themes/StatusTheme';
 import ActionBox from '~/components/ActionBox';
@@ -90,6 +91,15 @@ function Orders() {
     );
   }
 
+  function handleNavigateToEdit({ product, deliveryman, recipient, id }) {
+    history.push('/orders/edit', {
+      orderId: id,
+      product,
+      deliveryman_id: deliveryman.id,
+      recipient_id: recipient.id,
+    });
+  }
+
   return (
     <>
       {dialog}
@@ -139,7 +149,7 @@ function Orders() {
                         <MdRemoveRedEye color="#7159c1" />{' '}
                         <span>Visualizar</span>
                       </li>
-                      <li>
+                      <li onClick={() => handleNavigateToEdit(order)}>
                         <MdModeEdit color="#4D85EE" /> <span>Editar</span>
                       </li>
                       <li>

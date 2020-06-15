@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Select } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
 import { FormBox } from './styles';
 
-function FormPartial() {
+function FormPartial({ data }) {
   const [deliverymen, setDeliverymen] = useState([]);
   const [recipients, setRecipients] = useState([]);
+
+  const [selectedRecipient, setSelectedRecipient] = useState(
+    data.recipient_id || ''
+  );
+  const [selectedDeliveryman, setSelectedDeliveryman] = useState(
+    data.deliveryman_id || ''
+  );
+  const [product, setProduct] = useState(data.product || '');
 
   useEffect(() => {
     (async function loadSelectsData() {
@@ -40,6 +49,8 @@ function FormPartial() {
           <label htmlFor="recipient">Destinatário</label>
           <Select
             id="recipient"
+            value={selectedRecipient}
+            onChange={(event) => setSelectedRecipient(event.target.value)}
             name="recipient_id"
             placeholder="Selecione o destinatário"
             options={recipients}
@@ -50,6 +61,8 @@ function FormPartial() {
           <Select
             id="deliveryman"
             name="deliveryman_id"
+            value={selectedDeliveryman}
+            onChange={(event) => setSelectedDeliveryman(event.target.value)}
             placeholder="Selecione o entregador"
             options={deliverymen}
           />
@@ -57,9 +70,27 @@ function FormPartial() {
       </div>
 
       <label htmlFor="product">Nome do produto</label>
-      <Input name="product" id="product" type="text" />
+      <Input
+        name="product"
+        value={product}
+        onChange={(event) => setProduct(event.target.value)}
+        id="product"
+        type="text"
+      />
     </FormBox>
   );
 }
+
+FormPartial.propTypes = {
+  data: PropTypes.shape({
+    recipient_id: PropTypes.number,
+    deliveryman_id: PropTypes.number,
+    product: PropTypes.string,
+  }),
+};
+
+FormPartial.defaultProps = {
+  data: {},
+};
 
 export default FormPartial;

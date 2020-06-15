@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { Container } from './styles';
 
@@ -17,20 +19,21 @@ const schema = yup.object().shape({
   product: yup.string().required('O produto é obrigatório'),
 });
 
-function New() {
-  async function handleSubmit(
-    { recipient_id, deliveryman_id, product },
-    { resetForm }
-  ) {
+function Edit({ location }) {
+  const { recipient_id: recipient } = location.state;
+  const { deliveryman_id: deliveryman } = location.state;
+  const { product: registredProduct } = location.state;
+  const { orderId } = location.state;
+
+  async function handleSubmit({ recipient_id, deliveryman_id, product }) {
     try {
-      await api.post('/orders', {
+      await api.put(`/orders/${orderId}`, {
         recipient_id,
         deliveryman_id,
         product,
       });
 
-      resetForm();
-      toast.success('Encomenda cadastrada com sucesso!');
+      history.push('/orders');
     } catch (error) {
       toast.error('Falha ao cadastrar encomenda, tente novamente');
     }
@@ -52,10 +55,27 @@ function New() {
             </button>
           </div>
         </header>
-        <FormPartial />
+        <FormPartial
+          data={{
+            recipient_id: recipient,
+            deliveryman_id: deliveryman,
+            product: registredProduct,
+          }}
+        />
       </Form>
     </Container>
   );
 }
 
-export default New;
+Edit.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      recipient_id: PropTypes.number,
+      deliveryman_id: PropTypes.number,
+      product: PropTypes.string,
+      orderId: PropTypes.number,
+    }),
+  }).isRequired,
+};
+
+export default Edit;
