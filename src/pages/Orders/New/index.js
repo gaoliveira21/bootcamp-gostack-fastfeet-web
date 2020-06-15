@@ -44,7 +44,10 @@ function New() {
     })();
   }, []);
 
-  async function handleSubmit({ recipient_id, deliveryman_id, product }) {
+  async function handleSubmit(
+    { recipient_id, deliveryman_id, product },
+    { resetForm }
+  ) {
     try {
       await api.post('/orders', {
         recipient_id,
@@ -52,7 +55,8 @@ function New() {
         product,
       });
 
-      history.push('/orders');
+      resetForm();
+      toast.success('Encomenda cadastrada com sucesso!');
     } catch (error) {
       toast.error('Falha ao cadastrar encomenda, tente novamente');
     }
