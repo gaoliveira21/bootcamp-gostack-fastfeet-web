@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import history from '~/services/history';
 
 import { Container, FormBox } from './styles';
 
