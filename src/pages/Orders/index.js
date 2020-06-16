@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -100,6 +101,18 @@ function Orders() {
     });
   }
 
+  async function handleDeleteOrder(id) {
+    try {
+      if (window.confirm('Deseja realmente excluir esta encomenda?')) {
+        await api.delete(`/orders/${id}`);
+        setOrders(orders.filter((order) => order.id !== id));
+        toast.success('Encomenda removida com sucesso!');
+      }
+    } catch (error) {
+      toast.error('Falha ao excluir encomenda, tente novamente');
+    }
+  }
+
   return (
     <>
       {dialog}
@@ -152,7 +165,7 @@ function Orders() {
                       <li onClick={() => handleNavigateToEdit(order)}>
                         <MdModeEdit color="#4D85EE" /> <span>Editar</span>
                       </li>
-                      <li>
+                      <li onClick={() => handleDeleteOrder(order.id)}>
                         <MdDeleteForever color="#DE3B3B" /> <span>Excluir</span>
                       </li>
                     </ul>

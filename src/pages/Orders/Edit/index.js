@@ -35,7 +35,7 @@ function Edit({ location }) {
 
       history.push('/orders');
     } catch (error) {
-      toast.error('Falha ao cadastrar encomenda, tente novamente');
+      toast.error('Falha ao atualizar encomenda, tente novamente');
     }
   }
 
