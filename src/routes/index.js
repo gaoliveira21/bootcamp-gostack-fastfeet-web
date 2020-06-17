@@ -8,6 +8,7 @@ import Orders from '~/pages/Orders';
 import NewOrder from '~/pages/Orders/New';
 import EditOrder from '~/pages/Orders/Edit';
 import Deliverymen from '~/pages/Deliverymen';
+import NewDeliverymen from '~/pages/Deliverymen/New';
 import Recipients from '~/pages/Recipients';
 import Problems from '~/pages/Problems';
 
@@ -18,7 +19,8 @@ export default function Routes() {
       <Route path="/orders" exact component={Orders} isPrivate />
       <Route path="/orders/new" component={NewOrder} isPrivate />
       <Route path="/orders/edit" component={EditOrder} isPrivate />
-      <Route path="/deliverymen" component={Deliverymen} isPrivate />
+      <Route path="/deliverymen" exact component={Deliverymen} isPrivate />
+      <Route path="/deliverymen/new" component={NewDeliverymen} isPrivate />
       <Route path="/recipients" component={Recipients} isPrivate />
       <Route path="/problems" component={Problems} isPrivate />
     </Switch>

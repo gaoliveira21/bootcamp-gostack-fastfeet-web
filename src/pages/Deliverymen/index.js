@@ -20,7 +20,10 @@ function Deliverymen() {
 
   return (
     <>
-      <ContainerHeader title="Gerenciando entregadores" />
+      <ContainerHeader
+        title="Gerenciando entregadores"
+        link="/deliverymen/new"
+      />
       <Table>
         <thead>
           <tr>
