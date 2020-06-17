@@ -21,7 +21,7 @@ export const Box = styled.div`
     box-shadow: 0 0 2px #00000026;
     padding: 0 8px;
     transition: opacity 0.4s;
-    z-index: ${(props) => (props.visible === 'true' ? 100 : -100)};
+    display: ${(props) => (props.visible === 'true' ? 'block' : 'none')};
 
     li {
       display: flex;
