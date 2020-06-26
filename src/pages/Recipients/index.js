@@ -20,7 +20,10 @@ function Recipients() {
 
   return (
     <>
-      <ContainerHeader title="Gerenciando destinatários" />
+      <ContainerHeader
+        title="Gerenciando destinatários"
+        link="/recipients/new"
+      />
       <Table>
         <thead>
           <tr>

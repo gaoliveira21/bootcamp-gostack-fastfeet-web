@@ -10,6 +10,7 @@ import EditOrder from '~/pages/Orders/Edit';
 import Deliverymen from '~/pages/Deliverymen';
 import NewDeliverymen from '~/pages/Deliverymen/New';
 import Recipients from '~/pages/Recipients';
+import NewRecipient from '~/pages/Recipients/New';
 import Problems from '~/pages/Problems';
 
 export default function Routes() {
@@ -21,7 +22,8 @@ export default function Routes() {
       <Route path="/orders/edit" component={EditOrder} isPrivate />
       <Route path="/deliverymen" exact component={Deliverymen} isPrivate />
       <Route path="/deliverymen/new" component={NewDeliverymen} isPrivate />
-      <Route path="/recipients" component={Recipients} isPrivate />
+      <Route path="/recipients" exact component={Recipients} isPrivate />
+      <Route path="/recipients/new" component={NewRecipient} isPrivate />
       <Route path="/problems" component={Problems} isPrivate />
     </Switch>
   );
