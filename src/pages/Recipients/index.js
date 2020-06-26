@@ -25,37 +25,39 @@ function Recipients() {
         link="/recipients/new"
       />
       <Table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recipients.map((recipient) => (
+        <>
+          <thead>
             <tr>
-              <td>#{recipient.id}</td>
-              <td>{recipient.name}</td>
-              <td>{`${recipient.street}, ${recipient.number}, ${recipient.city}, ${recipient.state}`}</td>
-              <td>
-                <ActionBox>
-                  <ul>
-                    <li>
-                      <MdModeEdit color="#4D85EE" />
-                      <span>Editar</span>
-                    </li>
-                    <li>
-                      <MdDeleteForever color="#DE3B3B" />
-                      <span>Excluir</span>
-                    </li>
-                  </ul>
-                </ActionBox>
-              </td>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {recipients.map((recipient) => (
+              <tr key={recipient.id}>
+                <td>#{recipient.id}</td>
+                <td>{recipient.name}</td>
+                <td>{`${recipient.street}, ${recipient.number}, ${recipient.city}, ${recipient.state}`}</td>
+                <td>
+                  <ActionBox>
+                    <ul>
+                      <li>
+                        <MdModeEdit color="#4D85EE" />
+                        <span>Editar</span>
+                      </li>
+                      <li>
+                        <MdDeleteForever color="#DE3B3B" />
+                        <span>Excluir</span>
+                      </li>
+                    </ul>
+                  </ActionBox>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </>
       </Table>
     </>
   );

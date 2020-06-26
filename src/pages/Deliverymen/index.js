@@ -25,49 +25,51 @@ function Deliverymen() {
         link="/deliverymen/new"
       />
       <Table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Foto</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {deliverymen.map((deliveryman) => (
+        <>
+          <thead>
             <tr>
-              <td>#{deliveryman.id}</td>
-              <td>
-                <div>
-                  <img
-                    src={
-                      deliveryman.avatar.url ||
-                      'https://api.adorable.io/avatars/40/abott@adorable.png'
-                    }
-                    alt={deliveryman.name}
-                  />
-                </div>
-              </td>
-              <td>{deliveryman.name}</td>
-              <td>{deliveryman.email}</td>
-              <td>
-                <ActionBox>
-                  <ul>
-                    <li>
-                      <MdModeEdit color="#4D85EE" />
-                      <span>Editar</span>
-                    </li>
-                    <li>
-                      <MdDeleteForever color="#DE3B3B" />
-                      <span>Excluir</span>
-                    </li>
-                  </ul>
-                </ActionBox>
-              </td>
+              <th>ID</th>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {deliverymen.map((deliveryman) => (
+              <tr key={deliveryman.id}>
+                <td>#{deliveryman.id}</td>
+                <td>
+                  <div>
+                    <img
+                      src={
+                        deliveryman.avatar.url ||
+                        'https://api.adorable.io/avatars/40/abott@adorable.png'
+                      }
+                      alt={deliveryman.name}
+                    />
+                  </div>
+                </td>
+                <td>{deliveryman.name}</td>
+                <td>{deliveryman.email}</td>
+                <td>
+                  <ActionBox>
+                    <ul>
+                      <li>
+                        <MdModeEdit color="#4D85EE" />
+                        <span>Editar</span>
+                      </li>
+                      <li>
+                        <MdDeleteForever color="#DE3B3B" />
+                        <span>Excluir</span>
+                      </li>
+                    </ul>
+                  </ActionBox>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </>
       </Table>
     </>
   );

@@ -24,34 +24,37 @@ function Problems() {
         <h2>Problemas na encomenda</h2>
       </Container>
       <Table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Problema</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {problems.map((problem) => (
+        <>
+          <thead>
             <tr>
-              <td>#{problem.order.id}</td>
-              <td>{problem.description}</td>
-              <td>
-                <ActionBox>
-                  <ul>
-                    <li>
-                      <MdRemoveRedEye color="#7159c1" /> <span>Visualizar</span>
-                    </li>
-                    <li>
-                      <MdDeleteForever color="#DE3B3B" />{' '}
-                      <span>Cancelar encomenda</span>
-                    </li>
-                  </ul>
-                </ActionBox>
-              </td>
+              <th>ID</th>
+              <th>Problema</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {problems.map((problem) => (
+              <tr key={problem.id}>
+                <td>#{problem.order.id}</td>
+                <td>{problem.description}</td>
+                <td>
+                  <ActionBox>
+                    <ul>
+                      <li>
+                        <MdRemoveRedEye color="#7159c1" />{' '}
+                        <span>Visualizar</span>
+                      </li>
+                      <li>
+                        <MdDeleteForever color="#DE3B3B" />{' '}
+                        <span>Cancelar encomenda</span>
+                      </li>
+                    </ul>
+                  </ActionBox>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </>
       </Table>
     </>
   );
