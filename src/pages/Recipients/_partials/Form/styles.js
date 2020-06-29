@@ -43,4 +43,10 @@ export const FormBox = styled.div`
     margin-top: 5px;
     color: #999999;
   }
+
+  span {
+    color: #de3b3b;
+    margin-top: 4px;
+    font-weight: bold;
+  }
 `;
