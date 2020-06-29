@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
@@ -17,6 +18,28 @@ function Recipients() {
       setRecipients(response.data);
     })();
   }, []);
+
+  function handleNavigateToEdit({
+    id,
+    name,
+    street,
+    number,
+    complement,
+    city,
+    state,
+    cep,
+  }) {
+    history.push('/recipients/edit', {
+      id,
+      name,
+      street,
+      number,
+      complement,
+      city,
+      state,
+      cep,
+    });
+  }
 
   return (
     <>
@@ -43,7 +66,7 @@ function Recipients() {
                 <td>
                   <ActionBox>
                     <ul>
-                      <li>
+                      <li onClick={() => handleNavigateToEdit(recipient)}>
                         <MdModeEdit color="#4D85EE" />
                         <span>Editar</span>
                       </li>
