@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import ActionBox from '~/components/ActionBox';
 import ContainerHeader from '~/components/ContainerHeader';
@@ -17,6 +18,14 @@ function Deliverymen() {
       setDeliverymen(response.data);
     })();
   }, []);
+
+  function handleNavigateToEdit({ name, email, avatar }) {
+    history.push('/deliverymen/edit', {
+      name,
+      email,
+      avatar,
+    });
+  }
 
   return (
     <>
@@ -56,7 +65,7 @@ function Deliverymen() {
                 <td>
                   <ActionBox>
                     <ul>
-                      <li>
+                      <li onClick={() => handleNavigateToEdit(deliveryman)}>
                         <MdModeEdit color="#4D85EE" />
                         <span>Editar</span>
                       </li>

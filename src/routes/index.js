@@ -9,6 +9,7 @@ import NewOrder from '~/pages/Orders/New';
 import EditOrder from '~/pages/Orders/Edit';
 import Deliverymen from '~/pages/Deliverymen';
 import NewDeliverymen from '~/pages/Deliverymen/New';
+import EditDeliverymen from '~/pages/Deliverymen/Edit';
 import Recipients from '~/pages/Recipients';
 import NewRecipient from '~/pages/Recipients/New';
 import EditRecipient from '~/pages/Recipients/Edit';
@@ -23,6 +24,7 @@ export default function Routes() {
       <Route path="/orders/edit" component={EditOrder} isPrivate />
       <Route path="/deliverymen" exact component={Deliverymen} isPrivate />
       <Route path="/deliverymen/new" component={NewDeliverymen} isPrivate />
+      <Route path="/deliverymen/edit" component={EditDeliverymen} isPrivate />
       <Route path="/recipients" exact component={Recipients} isPrivate />
       <Route path="/recipients/new" component={NewRecipient} isPrivate />
       <Route path="/recipients/edit" component={EditRecipient} isPrivate />
