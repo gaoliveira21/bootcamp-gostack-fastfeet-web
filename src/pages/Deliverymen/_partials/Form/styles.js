@@ -7,29 +7,6 @@ export const FormBox = styled.div`
   padding: 20px;
 `;
 
-export const AvatarBox = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding: 10px 0;
-
-  label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100px;
-    cursor: pointer;
-
-    span {
-      color: #dddddd;
-    }
-
-    input[type='file'] {
-      display: none;
-    }
-  }
-`;
-
 export const InputBox = styled.div`
   display: flex;
   width: 100%;

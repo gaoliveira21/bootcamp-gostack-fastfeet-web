@@ -43,8 +43,9 @@ function Deliverymen() {
                   <div>
                     <img
                       src={
-                        deliveryman.avatar.url ||
-                        'https://api.adorable.io/avatars/40/abott@adorable.png'
+                        deliveryman.avatar
+                          ? deliveryman.avatar.url
+                          : 'https://api.adorable.io/avatars/40/abott@adorable.png'
                       }
                       alt={deliveryman.name}
                     />

@@ -1,21 +1,17 @@
 import React from 'react';
-import { MdImage } from 'react-icons/md';
+import { Input } from '@rocketseat/unform';
 
-import { FormBox, AvatarBox, InputBox } from './styles';
+import AvatarInput from '../../AvatarInput';
+
+import { FormBox, InputBox } from './styles';
 
 function FormPartial() {
   return (
     <FormBox>
-      <AvatarBox>
-        <label htmlFor="avatar">
-          <MdImage size={74} color="#DDDDDD" />
-          <span>Adicionar foto</span>
-          <input type="file" name="" id="avatar" accept="image/*" />
-        </label>
-      </AvatarBox>
+      <AvatarInput name="avatar_id" />
       <InputBox>
         <label htmlFor="name">Nome</label>
-        <input
+        <Input
           type="text"
           name="name"
           id="name"
@@ -24,8 +20,8 @@ function FormPartial() {
       </InputBox>
       <InputBox>
         <label htmlFor="email">Email</label>
-        <input
-          type="email"
+        <Input
+          type="text"
           name="email"
           id="email"
           placeholder="Insira o e-mail do entregador"
