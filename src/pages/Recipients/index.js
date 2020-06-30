@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
+import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
@@ -41,6 +42,20 @@ function Recipients() {
     });
   }
 
+  async function handleDeleteRecipient(recipient_id) {
+    try {
+      if (window.confirm('Deseja realmente excluir o destinatario?')) {
+        await api.delete(`/recipients/${recipient_id}`);
+        setRecipients(
+          recipients.filter((recipient) => recipient.id !== recipient_id)
+        );
+        toast.success('Destinatario removido com sucesso!');
+      }
+    } catch (error) {
+      toast.error('Falha ao excluir destinatario, tente novamente');
+    }
+  }
+
   return (
     <>
       <ContainerHeader
@@ -70,7 +85,7 @@ function Recipients() {
                         <MdModeEdit color="#4D85EE" />
                         <span>Editar</span>
                       </li>
-                      <li>
+                      <li onClick={() => handleDeleteRecipient(recipient.id)}>
                         <MdDeleteForever color="#DE3B3B" />
                         <span>Excluir</span>
                       </li>
