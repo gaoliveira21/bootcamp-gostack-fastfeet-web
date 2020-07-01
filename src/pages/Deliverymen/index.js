@@ -19,8 +19,9 @@ function Deliverymen() {
     })();
   }, []);
 
-  function handleNavigateToEdit({ name, email, avatar }) {
+  function handleNavigateToEdit({ id, name, email, avatar }) {
     history.push('/deliverymen/edit', {
+      id,
       name,
       email,
       avatar,
