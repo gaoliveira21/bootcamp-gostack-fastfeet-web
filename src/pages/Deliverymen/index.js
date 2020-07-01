@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -26,6 +27,20 @@ function Deliverymen() {
       email,
       avatar,
     });
+  }
+
+  async function handleRemoveDeliveryman(deliveryman_id) {
+    try {
+      if (window.confirm('Deseja excluir o entregador?')) {
+        await api.delete(`/deliverymen/${deliveryman_id}`);
+        setDeliverymen(
+          deliverymen.filter((deliveryman) => deliveryman.id !== deliveryman_id)
+        );
+        toast.success('Entregador excluido com sucesso!');
+      }
+    } catch (error) {
+      toast.error('Falha ao excluir entregador, tente novamente');
+    }
   }
 
   return (
@@ -70,7 +85,9 @@ function Deliverymen() {
                         <MdModeEdit color="#4D85EE" />
                         <span>Editar</span>
                       </li>
-                      <li>
+                      <li
+                        onClick={() => handleRemoveDeliveryman(deliveryman.id)}
+                      >
                         <MdDeleteForever color="#DE3B3B" />
                         <span>Excluir</span>
                       </li>
