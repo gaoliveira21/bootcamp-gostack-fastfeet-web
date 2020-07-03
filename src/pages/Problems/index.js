@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MdRemoveRedEye, MdDeleteForever } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
@@ -42,6 +43,17 @@ function Problems() {
     );
   }
 
+  async function handleCancelDelivery(problem_id) {
+    try {
+      if (window.confirm('Deseja realmente cancelar essa encomenda?')) {
+        await api.delete(`/problem/${problem_id}/cancel-delivery`);
+        toast.success('Encomenda cancelada com sucesso!');
+      }
+    } catch (error) {
+      toast.error('Falha ao cancelar encomenda, tente novamente.');
+    }
+  }
+
   return (
     <>
       {dialog}
@@ -69,7 +81,7 @@ function Problems() {
                         <MdRemoveRedEye color="#7159c1" />{' '}
                         <span>Visualizar</span>
                       </li>
-                      <li>
+                      <li onClick={() => handleCancelDelivery(problem.id)}>
                         <MdDeleteForever color="#DE3B3B" />{' '}
                         <span>Cancelar encomenda</span>
                       </li>
