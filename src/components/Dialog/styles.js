@@ -45,9 +45,10 @@ export const Container = styled.div`
 
     p {
       padding: 2px 0;
+      color: #666666;
 
       strong {
-        color: #555;
+        color: #444444;
       }
     }
 

@@ -58,7 +58,6 @@ function Orders() {
 
     setDialog(
       <Dialog
-        visible
         data={order[0]}
         close={handleDialogClose}
         render={(data) => (

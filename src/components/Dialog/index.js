@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Container, Close } from './styles';
 
-function Dialog({ visible, close, render, data }) {
+function Dialog({ close, render, data }) {
   return (
     <>
       <Close onClick={close} />
-      <Container visible={visible}>
+      <Container>
         <div>{render(data)}</div>
       </Container>
     </>
@@ -15,14 +15,12 @@ function Dialog({ visible, close, render, data }) {
 }
 
 Dialog.propTypes = {
-  visible: PropTypes.bool,
   close: PropTypes.func.isRequired,
   render: PropTypes.func.isRequired,
   data: PropTypes.shape,
 };
 
 Dialog.defaultProps = {
-  visible: false,
   data: {},
 };
 

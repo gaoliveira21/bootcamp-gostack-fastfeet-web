@@ -4,11 +4,14 @@ import { MdRemoveRedEye, MdDeleteForever } from 'react-icons/md';
 import api from '~/services/api';
 
 import { Container } from './styles';
+
+import Dialog from '~/components/Dialog';
 import Table from '~/components/Table';
 import ActionBox from '~/components/ActionBox';
 
 function Problems() {
   const [problems, setProblems] = useState([]);
+  const [dialog, setDialog] = useState(null);
 
   useEffect(() => {
     (async function loadProblems() {
@@ -18,8 +21,30 @@ function Problems() {
     })();
   }, []);
 
+  function handleShowDialog(id) {
+    const problem = problems.filter((p) => p.id === id);
+
+    function handleDialogClose() {
+      setDialog(null);
+    }
+
+    setDialog(
+      <Dialog
+        data={problem[0]}
+        close={handleDialogClose}
+        render={(data) => (
+          <>
+            <strong>Visualizar problema</strong>
+            <p>{data.description}</p>
+          </>
+        )}
+      />
+    );
+  }
+
   return (
     <>
+      {dialog}
       <Container title="Problemas na encomenda">
         <h2>Problemas na encomenda</h2>
       </Container>
@@ -40,7 +65,7 @@ function Problems() {
                 <td>
                   <ActionBox>
                     <ul>
-                      <li>
+                      <li onClick={() => handleShowDialog(problem.id)}>
                         <MdRemoveRedEye color="#7159c1" />{' '}
                         <span>Visualizar</span>
                       </li>
