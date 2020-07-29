@@ -8,17 +8,28 @@ import history from '~/services/history';
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
 import ActionBox from '~/components/ActionBox';
+import Pagination from '~/components/Pagination';
 
 function Recipients() {
   const [recipients, setRecipients] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     (async function loadRecipients() {
-      const response = await api.get('/recipients');
+      const response = await api.get('/recipients', {
+        params: {
+          page: currentPage + 1,
+          limit: 10,
+        },
+      });
 
-      setRecipients(response.data);
+      const { totalPages: totalPg } = response.data;
+
+      setTotalPages(totalPg);
+      setRecipients(response.data.recipient);
     })();
-  }, []);
+  }, [currentPage]);
 
   function handleNavigateToEdit({
     id,
@@ -97,6 +108,11 @@ function Recipients() {
           </tbody>
         </>
       </Table>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
     </>
   );
 }
