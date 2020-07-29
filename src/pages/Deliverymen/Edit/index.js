@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
@@ -22,10 +22,15 @@ const schema = yup.object().shape({
 
 function Edit({ location }) {
   const initialData = location.state;
+  const [avatarId, setAvatarId] = useState(initialData.avatar.id);
 
   async function handleSubmit({ name, email }) {
     try {
-      await api.put(`/deliverymen/${initialData.id}`, { name, email });
+      await api.put(`/deliverymen/${initialData.id}`, {
+        name,
+        email,
+        avatar_id: avatarId,
+      });
       history.push('/deliverymen');
     } catch (error) {
       toast.error('Falha ao atualizar entregador, tente novamente');
@@ -36,7 +41,7 @@ function Edit({ location }) {
     <Container>
       <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
         <FormHeader title="Edição de entregadores" />
-        <FormPartial />
+        <FormPartial avatarId={setAvatarId} />
       </Form>
     </Container>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
@@ -20,12 +20,14 @@ const schema = yup.object().shape({
 });
 
 function New() {
-  async function handleSubmit({ name, email, avatar_id }) {
+  const [avatarId, setAvatarId] = useState('');
+
+  async function handleSubmit({ name, email }) {
     try {
       await api.post('/deliverymen', {
         name,
         email,
-        avatar_id,
+        avatar_id: avatarId,
       });
 
       history.push('/deliverymen');
@@ -38,7 +40,7 @@ function New() {
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
         <FormHeader title="Cadastro de entregadores" />
-        <FormPartial />
+        <FormPartial avatarId={setAvatarId} />
       </Form>
     </Container>
   );

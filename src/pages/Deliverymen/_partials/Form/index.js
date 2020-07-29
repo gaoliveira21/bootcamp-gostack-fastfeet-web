@@ -1,14 +1,15 @@
 import React from 'react';
 import { Input } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import AvatarInput from '../../AvatarInput';
 
 import { FormBox, InputBox } from './styles';
 
-function FormPartial() {
+function FormPartial({ avatarId }) {
   return (
     <FormBox>
-      <AvatarInput name="avatar_id" />
+      <AvatarInput avatarId={avatarId} name="avatar_id" />
       <InputBox>
         <label htmlFor="name">Nome</label>
         <Input
@@ -30,5 +31,9 @@ function FormPartial() {
     </FormBox>
   );
 }
+
+FormPartial.propTypes = {
+  avatarId: PropTypes.func.isRequired,
+};
 
 export default FormPartial;

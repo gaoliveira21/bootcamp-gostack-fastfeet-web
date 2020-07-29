@@ -70,9 +70,9 @@ function Orders() {
         };
       });
 
-      const { totalPages } = response.data;
+      const { totalPages: totalPg } = response.data;
 
-      setTotalPages(totalPages);
+      setTotalPages(totalPg);
       setOrders(data);
     }
     loadOrders();
