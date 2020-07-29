@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TableWrapper = styled.table`
   margin-top: 30px;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
   width: 100%;
   border-spacing: 0 15px;
 

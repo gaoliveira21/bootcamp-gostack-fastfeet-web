@@ -3,6 +3,7 @@ import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import ReactPaginate from 'react-paginate';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -18,10 +19,16 @@ import { StatusBadge } from './styles';
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [dialog, setDialog] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    (async function loadOrders() {
-      const response = await api.get('/orders');
+    async function loadOrders() {
+      const response = await api.get('/orders', {
+        params: {
+          page: currentPage + 1,
+          limit: 1,
+        },
+      });
 
       const data = response.data.map((order) => {
         if (order.canceled_at)
@@ -63,8 +70,9 @@ function Orders() {
       });
 
       setOrders(data);
-    })();
-  }, []);
+    }
+    loadOrders();
+  }, [currentPage]);
 
   function handleShowDialog(id) {
     const order = orders.filter((o) => o.id === id);
@@ -192,6 +200,28 @@ function Orders() {
           </tbody>
         </>
       </Table>
+      <ReactPaginate
+        initialPage={currentPage}
+        pageCount={10}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={3}
+        previousLabel={
+          <button type="button" className="control-button">
+            Anterior
+          </button>
+        }
+        nextLabel={
+          <button type="button" className="control-button">
+            Próximo
+          </button>
+        }
+        onPageChange={({ selected }) => setCurrentPage(selected)}
+        containerClassName="paginate-continer"
+        pageClassName="page"
+        pageLinkClassName="page-link"
+        activeClassName="page-active"
+        activeLinkClassName="page-link-active"
+      />
     </>
   );
 }
