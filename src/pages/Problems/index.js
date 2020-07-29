@@ -10,6 +10,7 @@ import Dialog from '~/components/Dialog';
 import Table from '~/components/Table';
 import ActionBox from '~/components/ActionBox';
 import Pagination from '~/components/Pagination';
+import AlertBar from '~/components/AlertBar';
 
 function Problems() {
   const [problems, setProblems] = useState([]);
@@ -26,6 +27,9 @@ function Problems() {
         },
       });
 
+      const { totalPages: totalPg } = response.data;
+
+      setTotalPages(totalPg);
       setProblems(response.data.problems);
     })();
   }, [currentPage]);
@@ -68,44 +72,50 @@ function Problems() {
       <Container title="Problemas na encomenda">
         <h2>Problemas na encomenda</h2>
       </Container>
-      <Table>
+      {problems.length > 0 ? (
         <>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Problema</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {problems.map((problem) => (
-              <tr key={problem.id}>
-                <td>#{problem.order.id}</td>
-                <td>{problem.description}</td>
-                <td>
-                  <ActionBox>
-                    <ul>
-                      <li onClick={() => handleShowDialog(problem.id)}>
-                        <MdRemoveRedEye color="#7159c1" />{' '}
-                        <span>Visualizar</span>
-                      </li>
-                      <li onClick={() => handleCancelDelivery(problem.id)}>
-                        <MdDeleteForever color="#DE3B3B" />{' '}
-                        <span>Cancelar encomenda</span>
-                      </li>
-                    </ul>
-                  </ActionBox>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <Table>
+            <>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Problema</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {problems.map((problem) => (
+                  <tr key={problem.id}>
+                    <td>#{problem.order.id}</td>
+                    <td>{problem.description}</td>
+                    <td>
+                      <ActionBox>
+                        <ul>
+                          <li onClick={() => handleShowDialog(problem.id)}>
+                            <MdRemoveRedEye color="#7159c1" />{' '}
+                            <span>Visualizar</span>
+                          </li>
+                          <li onClick={() => handleCancelDelivery(problem.id)}>
+                            <MdDeleteForever color="#DE3B3B" />{' '}
+                            <span>Cancelar encomenda</span>
+                          </li>
+                        </ul>
+                      </ActionBox>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          </Table>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
         </>
-      </Table>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
-      />
+      ) : (
+        <AlertBar content="Nenhum registro encontrado" />
+      )}
     </>
   );
 }
