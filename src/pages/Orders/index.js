@@ -20,17 +20,18 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const [dialog, setDialog] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     async function loadOrders() {
       const response = await api.get('/orders', {
         params: {
           page: currentPage + 1,
-          limit: 1,
+          limit: 10,
         },
       });
 
-      const data = response.data.map((order) => {
+      const data = response.data.orders.map((order) => {
         if (order.canceled_at)
           return {
             ...order,
@@ -69,6 +70,9 @@ function Orders() {
         };
       });
 
+      const { totalPages } = response.data;
+
+      setTotalPages(totalPages);
       setOrders(data);
     }
     loadOrders();
@@ -202,7 +206,7 @@ function Orders() {
       </Table>
       <ReactPaginate
         initialPage={currentPage}
-        pageCount={10}
+        pageCount={totalPages}
         pageRangeDisplayed={3}
         marginPagesDisplayed={3}
         previousLabel={
