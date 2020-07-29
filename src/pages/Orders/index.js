@@ -3,7 +3,6 @@ import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import ReactPaginate from 'react-paginate';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -14,6 +13,7 @@ import ActionBox from '~/components/ActionBox';
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
 import Dialog from '~/components/Dialog';
+import Pagination from '~/components/Pagination';
 import { StatusBadge } from './styles';
 
 function Orders() {
@@ -204,27 +204,10 @@ function Orders() {
           </tbody>
         </>
       </Table>
-      <ReactPaginate
-        initialPage={currentPage}
-        pageCount={totalPages}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={3}
-        previousLabel={
-          <button type="button" className="control-button">
-            Anterior
-          </button>
-        }
-        nextLabel={
-          <button type="button" className="control-button">
-            Próximo
-          </button>
-        }
-        onPageChange={({ selected }) => setCurrentPage(selected)}
-        containerClassName="paginate-continer"
-        pageClassName="page"
-        pageLinkClassName="page-link"
-        activeClassName="page-active"
-        activeLinkClassName="page-link-active"
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
       />
     </>
   );

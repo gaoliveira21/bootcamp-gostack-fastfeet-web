@@ -8,17 +8,28 @@ import history from '~/services/history';
 import ActionBox from '~/components/ActionBox';
 import ContainerHeader from '~/components/ContainerHeader';
 import Table from '~/components/Table';
+import Pagination from '~/components/Pagination';
 
 function Deliverymen() {
   const [deliverymen, setDeliverymen] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     (async function loadDeliverymen() {
-      const response = await api.get('/deliverymen');
+      const response = await api.get('/deliverymen', {
+        params: {
+          page: currentPage + 1,
+          limit: 10,
+        },
+      });
 
-      setDeliverymen(response.data);
+      const { totalPages: totalPg } = response.data;
+
+      setTotalPages(totalPg);
+      setDeliverymen(response.data.deliverymen);
     })();
-  }, []);
+  }, [currentPage]);
 
   function handleNavigateToEdit({ id, name, email, avatar }) {
     history.push('/deliverymen/edit', {
@@ -99,6 +110,11 @@ function Deliverymen() {
           </tbody>
         </>
       </Table>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
     </>
   );
 }
