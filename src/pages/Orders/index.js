@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { MdRemoveRedEye, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 import api from '~/services/api';
 import history from '~/services/history';
+import cepMask from '~/utils/cepMask';
 
 import * as StatusTheme from '~/styles/themes/StatusTheme';
 import ActionBox from '~/components/ActionBox';
@@ -31,12 +34,26 @@ function Orders() {
           return {
             ...order,
             status: StatusTheme.delivered,
+            formattedEndDate: format(
+              parseISO(order.end_date),
+              "dd-MM-yyyy '-' k:m",
+              {
+                locale: pt,
+              }
+            ),
           };
 
         if (order.start_date)
           return {
             ...order,
             status: StatusTheme.withdrawal,
+            formattedStartDate: format(
+              parseISO(order.start_date),
+              "dd-MM-yyyy '-' k:m",
+              {
+                locale: pt,
+              }
+            ),
           };
 
         return {
@@ -69,16 +86,16 @@ function Orders() {
             <span>
               {data.recipient.city} - {data.recipient.state}
             </span>
-            <span>{data.recipient.cep}</span>
+            <span>{cepMask(data.recipient.cep)}</span>
             <hr />
             <strong>Datas</strong>
             <p>
               <strong>Retirada: </strong>
-              <span>{data.start_date}</span>
+              <span>{data.formattedStartDate}</span>
             </p>
             <p>
               <strong>Entregue: </strong>
-              <span>{data.end_date}</span>
+              <span>{data.formattedEndDate}</span>
             </p>
             <hr />
             <strong>Assinatura do destinatário</strong>

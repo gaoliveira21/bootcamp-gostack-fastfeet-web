@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Form } from '@rocketseat/unform';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 
 import FormHeader from '~/components/FormHeader';
 import FormPartial from '../_partials/Form';
+
+import cepMask from '~/utils/cepMask';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -24,6 +26,10 @@ const schema = yup.object().shape({
 function Edit({ location }) {
   const formData = location.state;
 
+  useMemo(() => {
+    formData.cep = cepMask(formData.cep);
+  }, [formData]);
+
   async function handleSubmit({
     name,
     street,
@@ -34,7 +40,6 @@ function Edit({ location }) {
     cep,
   }) {
     try {
-      console.tron.log(formData);
       await api.put(`/recipients/${formData.id}`, {
         name,
         street,
@@ -55,7 +60,7 @@ function Edit({ location }) {
     <Container>
       <Form initialData={formData} schema={schema} onSubmit={handleSubmit}>
         <FormHeader title="Edição de encomendas" />
-        <FormPartial />
+        <FormPartial data={formData} />
       </Form>
     </Container>
   );

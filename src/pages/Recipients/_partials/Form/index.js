@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
+
+import cepMask from '~/utils/cepMask';
 
 import { FormBox } from './styles';
 
-function FormPartial() {
+function FormPartial({ data }) {
+  const [formattedCEP, setFormattedCEP] = useState(data.cep);
+
   return (
     <FormBox>
       <div>
@@ -35,11 +40,31 @@ function FormPartial() {
         </div>
         <div>
           <label htmlFor="cep">CEP</label>
-          <Input type="text" name="cep" id="cep" />
+          <Input
+            type="text"
+            name="cep"
+            id="cep"
+            maxLength={9}
+            defaultValue={formattedCEP}
+            value={formattedCEP}
+            onChange={(event) => setFormattedCEP(cepMask(event.target.value))}
+          />
         </div>
       </div>
     </FormBox>
   );
 }
+
+FormPartial.propTypes = {
+  data: PropTypes.shape({
+    cep: PropTypes.string,
+  }),
+};
+
+FormPartial.defaultProps = {
+  data: {
+    cep: '',
+  },
+};
 
 export default FormPartial;
