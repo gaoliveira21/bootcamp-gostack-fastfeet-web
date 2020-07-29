@@ -27,7 +27,7 @@ function Recipients() {
       const { totalPages: totalPg } = response.data;
 
       setTotalPages(totalPg);
-      setRecipients(response.data.recipient);
+      setRecipients(response.data.recipients);
     })();
   }, [currentPage]);
 

@@ -9,18 +9,26 @@ import { Container } from './styles';
 import Dialog from '~/components/Dialog';
 import Table from '~/components/Table';
 import ActionBox from '~/components/ActionBox';
+import Pagination from '~/components/Pagination';
 
 function Problems() {
   const [problems, setProblems] = useState([]);
   const [dialog, setDialog] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     (async function loadProblems() {
-      const response = await api.get('/delivery/problems');
+      const response = await api.get('/delivery/problems', {
+        params: {
+          page: currentPage + 1,
+          limit: 10,
+        },
+      });
 
-      setProblems(response.data);
+      setProblems(response.data.problems);
     })();
-  }, []);
+  }, [currentPage]);
 
   function handleShowDialog(id) {
     const problem = problems.filter((p) => p.id === id);
@@ -93,6 +101,11 @@ function Problems() {
           </tbody>
         </>
       </Table>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
     </>
   );
 }
